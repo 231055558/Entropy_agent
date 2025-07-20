@@ -1,0 +1,282 @@
+<!DOCTYPE html><html><head>
+      <title>overall_dev_doc</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/lihaoyang/.cursor/extensions/shd101wyy.markdown-preview-enhanced-0.8.18/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:////Users/lihaoyang/.cursor/extensions/shd101wyy.markdown-preview-enhanced-0.8.18/crossnote/dependencies/mermaid/mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="echoflow-agent-系统设计文档-v10---核心架构与协议规范"><strong>EchoFlow-Agent 系统设计文档: V1.0 - 核心架构与协议规范</strong> </h1>
+<h2 id="1-文档引言">1. 文档引言 </h2>
+<h3 id="11-文档目的">1.1. 文档目的 </h3>
+<p>本文档（版本 1.0）是 EchoFlow-Agent 系统的最高级别设计规范。它定义了系统的整体架构、模块职责、通信协议、数据结构以及核心工作流程。所有后续的详细设计和开发工作都必须严格遵守本规范。</p>
+<h3 id="12-核心原则">1.2. 核心原则 </h3>
+<ul>
+<li><strong>规范优于实现 (Specification over Implementation)</strong>: 任何开发活动都必须以本文档为准绳。当实现与规范冲突时，应优先修订规范再进行开发。</li>
+<li><strong>模块化与解耦 (Modularity &amp; Decoupling)</strong>: 各模块功能独立、职责清晰，通过标准化的接口进行通信，降低系统复杂度，提高可维护性。</li>
+<li><strong>双速架构 (Dual-Speed Architecture)</strong>: 系统内置“<strong>快速反射通道</strong>”和“<strong>深度处理通道</strong>”，以平衡极致响应速度和强大任务处理能力。</li>
+<li><strong>统一数据模型 (Unified Data Model)</strong>: 所有在系统内部流转的信息都必须遵循统一的数据结构，以实现无缝处理和路由。</li>
+</ul>
+<h2 id="2-系统整体架构">2. 系统整体架构 </h2>
+<p>系统采用基于 <strong>FastAPI</strong> 的微服务化架构，由<strong>统一通信网关 (UCG)</strong>、<strong>输入适配器层</strong>、<strong>双速处理核心</strong>和<strong>输出管理器</strong>组成。</p>
+<div class="mermaid">graph TD
+    subgraph "输入源 (Input Sources)"
+        A1[PC/Mobile App]
+        A2[聊天软件微信]
+        A3[电话/VoIP]
+        A4[定时任务调度器]
+    end
+
+    subgraph "适配器层 (Adaptor Layer)"
+        B1[微信适配器]
+        B2[VoIP适配器]
+        B3[任务调度适配器]
+    end
+    
+    subgraph "核心系统 (Core System)"
+        C{统一通信网关 UCG};
+        subgraph "双速处理核心"
+            D[快速反射通道 FRC];
+            E[深度处理通道 DPC / Agent Core];
+        end
+        F[文件存储服务 FSS];
+        G[输出管理器 OM];
+    end
+
+    A1 --&gt; C;
+    A2 --&gt; B1;
+    A3 --&gt; B2;
+    A4 --&gt; B3;
+
+    B1 --&gt; C;
+    B2 --&gt; C;
+    B3 --&gt; C;
+
+    C -- 标准化事件 --&gt; D;
+    C -- 文件元数据 --&gt; F;
+    D -- 升级请求 --&gt; E;
+    D -- 快速响应 --&gt; G;
+    E -- 完整响应 --&gt; G;
+
+    G -- 实时语音流 --&gt; C;
+    G -- 文本/文件 --&gt; C;
+
+    C --&gt; A1;
+</div><h2 id="3-模块设计规范">3. 模块设计规范 </h2>
+<h3 id="31-统一通信网关-unified-communication-gateway---ucg">3.1. 统一通信网关 (Unified Communication Gateway - UCG) </h3>
+<ul>
+<li><strong>技术栈</strong>: FastAPI 应用, Uvicorn 服务器。</li>
+<li><strong>职责</strong>:
+<ol>
+<li>作为系统唯一面向公网的入口点。</li>
+<li>处理用户身份验证与会话管理。</li>
+<li>提供标准化的 <strong>HTTP/S</strong> 和 <strong>WebSocket Secure (WSS)</strong> 端点。</li>
+<li>接收所有来自客户端和适配器的请求。</li>
+<li>将所有输入数据转换为<strong>标准化事件对象 (Standard Event Object - SEO)</strong>。</li>
+<li>将SEO路由到<strong>快速反射通道 (FRC)</strong>。</li>
+<li>与<strong>文件存储服务 (FSS)</strong> 协作处理文件上传。</li>
+<li>将<strong>输出管理器 (OM)</strong> 生成的响应传递回相应的客户端。</li>
+</ol>
+</li>
+</ul>
+<h3 id="32-输入适配器层-adaptor-layer">3.2. 输入适配器层 (Adaptor Layer) </h3>
+<ul>
+<li><strong>职责</strong>: 将非标准化的第三方平台输入转换为UCG可以理解的标准化请求。
+<ul>
+<li><strong>微信适配器</strong>: 将微信消息（文本、语音、图片、文件）转换为对UCG的HTTP/S调用。</li>
+<li><strong>VoIP适配器</strong>: 建立与PSTN/VoIP平台的媒体流连接，并将实时音频流通过WSS转发至UCG。</li>
+<li><strong>任务调度适配器</strong>: 一个内部服务（如基于<code>apscheduler</code>或Cron Job），在预定时间生成一个SEO并将其推送至UCG。</li>
+</ul>
+</li>
+</ul>
+<h3 id="33-文件存储服务-fss">3.3. 文件存储服务 (FSS) </h3>
+<ul>
+<li><strong>技术选型</strong>: 本地部署的 <strong>MinIO</strong> (兼容S3协议) 或云厂商对象存储 (如AWS S3)。</li>
+<li><strong>职责</strong>:
+<ol>
+<li>提供安全、可扩展的文件存储能力。</li>
+<li>通过UCG生成临时的预签名上传/下载URL，实现客户端直传，减轻UCG负载。</li>
+<li>存储所有用户上传的文件，并提供唯一的<code>file_id</code>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="34-快速反射通道-fast-reflex-channel---frc">3.4. 快速反射通道 (Fast Reflex Channel - FRC) </h3>
+<ul>
+<li><strong>位置</strong>: 核心系统内部模块，由本地LLM驱动。</li>
+<li><strong>职责</strong>:
+<ol>
+<li>接收来自UCG的所有SEO。</li>
+<li>进行初步的、极速的决策。</li>
+<li><strong>对于纯信息类输入</strong>: 立即生成一个临时的、安抚性的响应（如“好的，正在处理…”），或直接回答简单问题。</li>
+<li><strong>对于包含文件或复杂指令的输入</strong>: 生成一个确认收到的响应（如“文件已收到，我将开始分析…”）。</li>
+<li><strong>决策升级</strong>: 判断当前任务是否需要<strong>深度处理通道 (DPC)</strong>。如果需要，向DPC发出一个包含完整上下文的“任务升级”请求。</li>
+<li>将所有生成的快速响应发送至<strong>输出管理器 (OM)</strong>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="35-深度处理通道-deep-processing-channel---dpc--agent-core">3.5. 深度处理通道 (Deep Processing Channel - DPC) / Agent Core </h3>
+<ul>
+<li><strong>职责</strong>:
+<ol>
+<li>接收来自FRC的任务升级请求。</li>
+<li>执行所有复杂的、耗时的任务，包括但不限于：
+<ul>
+<li>多步工具调用。</li>
+<li>数据库查询与操作。</li>
+<li>与外部系统进行MCP通信。</li>
+<li>对FSS中的文件进行深度分析。</li>
+</ul>
+</li>
+<li>生成包含文本、文件等多种媒介的完整、详尽的响应。</li>
+<li>将完整响应发送至<strong>输出管理器 (OM)</strong>。</li>
+</ol>
+</li>
+</ul>
+<h3 id="36-输出管理器-output-manager---om">3.6. 输出管理器 (Output Manager - OM) </h3>
+<ul>
+<li><strong>职责</strong>:
+<ol>
+<li>接收来自FRC和DPC的响应指令。</li>
+<li>根据指令类型进行处理：
+<ul>
+<li><strong>实时语音合成</strong>: 将文本流通过API（如ElevenLabs）转换为音频流，并通过WSS实时推送到客户端。</li>
+<li><strong>文本消息</strong>: 封装成标准消息格式。</li>
+<li><strong>文件发送</strong>: 从FSS获取文件的预签名下载URL，并封装。</li>
+</ul>
+</li>
+<li>将格式化后的最终响应发送回UCG，由UCG分发给目标客户端。</li>
+</ol>
+</li>
+</ul>
+<h2 id="4-数据协议与格式规范">4. 数据协议与格式规范 </h2>
+<h3 id="41-标准化事件对象-standard-event-object---seo">4.1. 标准化事件对象 (Standard Event Object - SEO) </h3>
+<p>这是系统内部信息流转的原子单位，由Pydantic模型定义。</p>
+<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># pydantic_models.py</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">FileMetadata</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    file_id<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    filename<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    mime_type<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    size_bytes<span class="token punctuation">:</span> <span class="token builtin">int</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">Content</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token builtin">type</span><span class="token punctuation">:</span> Literal<span class="token punctuation">[</span><span class="token string">"text"</span><span class="token punctuation">,</span> <span class="token string">"realtime_speech_chunk"</span><span class="token punctuation">,</span> <span class="token string">"file_placeholder"</span><span class="token punctuation">]</span>
+    data<span class="token punctuation">:</span> Any <span class="token comment"># text: str, speech_chunk: bytes</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">InputEvent</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    event_id<span class="token punctuation">:</span> UUID <span class="token operator">=</span> Field<span class="token punctuation">(</span>default_factory<span class="token operator">=</span>uuid<span class="token punctuation">.</span>uuid4<span class="token punctuation">)</span>
+    session_id<span class="token punctuation">:</span> UUID
+    user_id<span class="token punctuation">:</span> <span class="token builtin">str</span>
+    timestamp<span class="token punctuation">:</span> datetime <span class="token operator">=</span> Field<span class="token punctuation">(</span>default_factory<span class="token operator">=</span>datetime<span class="token punctuation">.</span>utcnow<span class="token punctuation">)</span>
+    source_platform<span class="token punctuation">:</span> Literal<span class="token punctuation">[</span><span class="token string">"app"</span><span class="token punctuation">,</span> <span class="token string">"wechat"</span><span class="token punctuation">,</span> <span class="token string">"phone"</span><span class="token punctuation">,</span> <span class="token string">"scheduler"</span><span class="token punctuation">]</span>
+    
+    <span class="token comment"># 核心内容</span>
+    text_content<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span> <span class="token comment"># ASR转换后的最终文本</span>
+    speech_chunk<span class="token punctuation">:</span> Optional<span class="token punctuation">[</span><span class="token builtin">bytes</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">None</span> <span class="token comment"># 实时语音数据块</span>
+    files<span class="token punctuation">:</span> List<span class="token punctuation">[</span>FileMetadata<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token comment"># 关联的文件列表</span>
+
+</code></pre><p><strong>流程</strong>:</p>
+<ol>
+<li>客户端/适配器发送原始信息。</li>
+<li>UCG中的ASR模块（如Deepgram）将语音/实时通话信息转换为<code>text_content</code>。文件上传流程完成后，文件信息填入<code>files</code>列表。</li>
+<li>完整的<code>InputEvent</code>被创建并送入FRC。</li>
+</ol>
+<h3 id="42-响应指令对象-response-instruction-object---rio">4.2. 响应指令对象 (Response Instruction Object - RIO) </h3>
+<p>由FRC或DPC生成，指导OM如何构建并发送响应。</p>
+<pre data-role="codeBlock" data-info="python" class="language-python python"><code><span class="token comment"># pydantic_models.py</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">ResponseContent</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token builtin">type</span><span class="token punctuation">:</span> Literal<span class="token punctuation">[</span><span class="token string">"text"</span><span class="token punctuation">,</span> <span class="token string">"speech_stream"</span><span class="token punctuation">,</span> <span class="token string">"file_download"</span><span class="token punctuation">]</span>
+    data<span class="token punctuation">:</span> Any <span class="token comment"># text: str, speech_stream: str (text to be synthesized), file_download: str (file_id)</span>
+
+<span class="token keyword keyword-class">class</span> <span class="token class-name">ResponseInstruction</span><span class="token punctuation">(</span>BaseModel<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    response_to_event_id<span class="token punctuation">:</span> UUID
+    session_id<span class="token punctuation">:</span> UUID
+    is_final_response<span class="token punctuation">:</span> <span class="token builtin">bool</span> <span class="token comment"># 区分是FRC的临时响应还是DPC的最终响应</span>
+    content<span class="token punctuation">:</span> List<span class="token punctuation">[</span>ResponseContent<span class="token punctuation">]</span>
+    playback_config<span class="token punctuation">:</span> Dict<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> Any<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"autoplay_speech"</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">}</span> <span class="token comment"># 控制客户端行为</span>
+</code></pre><h2 id="5-核心工作流程规范">5. 核心工作流程规范 </h2>
+<h3 id="51-实时语音对话流程">5.1. 实时语音对话流程 </h3>
+<ol>
+<li><strong>客户端</strong>: 与UCG建立WSS连接，持续发送PCM音频块。</li>
+<li><strong>UCG</strong>: 将音频流实时转发给ASR服务。ASR返回的文本被实时组装进一个<code>InputEvent</code>的<code>text_content</code>字段。</li>
+<li><strong>FRC</strong>: 接收到<code>InputEvent</code>后，立即生成一个<code>ResponseInstruction</code>，<code>content.type</code>为<code>speech_stream</code>。</li>
+<li><strong>OM</strong>: 接收到指令，立即将文本流送至TTS服务，并将返回的音频流通过WSS推回客户端。</li>
+<li>整个过程延迟极低，形成流畅对话。</li>
+</ol>
+<h3 id="52-文件上传与处理流程">5.2. 文件上传与处理流程 </h3>
+<ol>
+<li><strong>客户端</strong>: 调用UCG的<code>/presign-upload</code>端点，获取上传URL和<code>file_id</code>。</li>
+<li><strong>客户端</strong>: 将文件直传至FSS。</li>
+<li><strong>客户端</strong>: 发送一个包含<code>text_content</code>（如“帮我分析这份报告”）和<code>files</code>列表（包含<code>file_id</code>和元数据）的HTTP/S请求至UCG。</li>
+<li><strong>UCG</strong>: 创建<code>InputEvent</code>并送至FRC。</li>
+<li><strong>FRC</strong>: 立即生成快速响应（如“文件已收到，分析需要一些时间”），并通过OM返回给用户。同时，向DPC发出任务升级请求，附带完整的<code>InputEvent</code>。</li>
+<li><strong>DPC</strong>: 在后台开始处理。它可以通过<code>file_id</code>向FSS请求文件的临时访问权限，进行深度分析。</li>
+<li><strong>DPC</strong>: 处理完成后，生成包含分析结果的最终<code>ResponseInstruction</code>，通过OM返回给用户。</li>
+</ol>
+
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>
