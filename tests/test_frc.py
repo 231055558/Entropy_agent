@@ -36,7 +36,7 @@ def test_model():
         # 使用正确的Llama-3.1 Chat格式
         messages = [
             {"role": "system", "content": "你是一个有用的AI助手。"},
-            {"role": "user", "content": "你好啊，你是谁"}
+            {"role": "user", "content": '你好'}
         ]
         
         response = llm.create_chat_completion(
