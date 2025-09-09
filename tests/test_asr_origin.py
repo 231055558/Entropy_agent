@@ -1,15 +1,23 @@
-from deepgram import PrerecordedOptions
-import os
-
 from deepgram import DeepgramClient
 
-DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY")
-
 # Initialize the client
-deepgram = DeepgramClient(DEEPGRAM_API_KEY)  # Replace with your API key
+deepgram = DeepgramClient("91b233deb692fcbc8f9f913ce3d300db65463450")  # Replace with your API key
 
-response = deepgram.listen.rest.v("1").transcribe_url(
-    source={"url": "https://dpgr.am/spacewalk.wav"},
-    options=PrerecordedOptions(model="nova-3") # Apply other options
-)
-print(response)
+from deepgram import LiveOptions, LiveTranscriptionEvents
+
+# Create a websocket connection
+connection = deepgram.listen.websocket.v("1")
+
+# Handle transcription events
+@connection.on(LiveTranscriptionEvents.Transcript)
+def handle_transcript(result):
+    print(result.channel.alternatives[0].transcript)
+
+# Start connection with streaming options
+connection.start(LiveOptions(model="nova-3", language="en-US"))
+
+# Send audio data
+connection.send(open("path/to/your/audio.wav", "rb").read())
+
+# Close when done
+connection.finish()
