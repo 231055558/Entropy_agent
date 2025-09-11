@@ -1,117 +1,148 @@
-# test_asr_robust.py
+# asr_local_stream_v4.8_final_final.py
 
 import asyncio
+import logging
 import os
+import sys
 import sounddevice as sd
+import numpy as np
 from dotenv import load_dotenv
-from deepgram import DeepgramClient, LiveTranscriptionEvents, LiveOptions
 
-# --- 配置 ---
+from deepgram import (
+    DeepgramClient,
+    DeepgramClientOptions,
+    LiveOptions,
+    LiveTranscriptionEvents,
+)
+
 load_dotenv()
 API_KEY = os.getenv("DEEPGRAM_API_KEY")
 
-# Deepgram推荐的音频格式
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+
 SAMPLE_RATE = 16000
 CHANNELS = 1
-DTYPE = "int16"
+DTYPE = np.int16
 
-# 创建一个异步事件，用于在主协程和回调之间同步
-# (这个有点像线程编程里的Event，但用于asyncio)
-mic_ready = asyncio.Event()
+class ASRClient:
+    def __init__(self, api_key: str):
+        if not api_key:
+            raise ValueError("Deepgram API Key is required.")
+        
+        config = DeepgramClientOptions(api_key=api_key, verbose=logging.WARNING)
+        self.deepgram = DeepgramClient(config=config)
+        self.audio_queue = asyncio.Queue()
+        self.is_speaking = False
+        self.connection = None
 
-# --- 音频处理 ---
-# 使用一个简单的异步队列
-audio_queue = asyncio.Queue()
+    def _audio_callback(self, indata, frames, time, status):
+        if status: logging.warning(f"Audio status error: {status}")
+        try: self.audio_queue.put_nowait(indata.copy())
+        except asyncio.QueueFull: logging.warning("Audio queue is full, dropping a frame.")
 
-def audio_callback(indata, frames, time, status):
-    """sounddevice的回调函数，在单独的线程中运行"""
-    if status:
-        print(f"Audio status error: {status}")
-    try:
-        # 将音频数据块放入队列
-        audio_queue.put_nowait(indata.copy())
-    except asyncio.QueueFull:
-        # 如果队列满了，可以忽略或者打印一个警告
-        pass
+    async def _start_microphone(self):
+        logging.info("Starting microphone...")
+        with sd.InputStream(samplerate=SAMPLE_RATE, channels=CHANNELS, dtype=DTYPE, callback=self._audio_callback):
+            while self.is_speaking: await asyncio.sleep(0.1)
+        logging.info("Microphone stopped.")
 
-async def mic_producer():
-    """生产者：负责打开麦克风并持续捕获音频"""
-    print("生产者：准备打开麦克风...")
-    # 打开麦克风流
-    stream = sd.InputStream(
-        samplerate=SAMPLE_RATE,
-        channels=CHANNELS,
-        dtype=DTYPE,
-        callback=audio_callback
-    )
-    with stream:
-        print("麦克风已打开！现在可以开始说话了。")
-        mic_ready.set()  # 发送信号，告诉消费者麦克风已就绪
-        # 保持运行，让回调函数持续工作
-        while True:
-            await asyncio.sleep(1)
-
-async def dg_consumer():
-    """消费者：负责连接Deepgram并发送音频数据"""
-    if not API_KEY:
-        print("错误: DEEPGRAM_API_KEY 未设置。")
-        return
-
-    # 1. 初始化Deepgram客户端和连接
-    deepgram = DeepgramClient(API_KEY)
-    dg_connection = deepgram.listen.asynclive.v("1")
-
-    # 2. 定义事件监听器
-    async def on_message(self, result, **kwargs):
-        sentence = result.channel.alternatives[0].transcript
-        if len(sentence) > 0:
-            print(f"Deepgram -> {sentence}")
-
-    dg_connection.on(LiveTranscriptionEvents.Transcript, on_message)
-    dg_connection.on(LiveTranscriptionEvents.Error, lambda self, error, **kwargs: print(f"Deepgram Error: {error}"))
-
-    # 3. 启动连接
-    options = LiveOptions(model="nova-3", language="zh-CN", punctuate=True)
-    try:
-        await dg_connection.start(options)
-        print("消费者：已成功连接到Deepgram。")
-
-        # 4. 等待生产者（麦克风）就绪的信号
-        print("消费者：正在等待麦克风就绪...")
-        await mic_ready.wait()
-        print("消费者：收到麦克风就绪信号，开始发送数据。")
-
-        # 5. 从队列中取出数据并发送
+    async def _send_audio_from_queue(self):
         sent_chunks = 0
-        while True:
-            chunk = await audio_queue.get()
-            await dg_connection.send(chunk.tobytes())
-            sent_chunks += 1
-            if sent_chunks == 1:
-                print(">>> 已成功发送第一个音频块到Deepgram！")
-            if sent_chunks % 100 == 0:
-                print(f"    (已发送 {sent_chunks} 个块)")
+        try:
+            while self.is_speaking:
+                try:
+                    chunk = await asyncio.wait_for(self.audio_queue.get(), timeout=1.0)
+                    if self.connection:
+                        await self.connection.send(chunk.tobytes())
+                        sent_chunks += 1
+                        if sent_chunks == 1:
+                            logging.info(">>> 第一个音频块已成功发送！现在Deepgram正在处理...")
+                except asyncio.TimeoutError: continue
+        except Exception as e: logging.error(f"Error sending audio: {e}", exc_info=True)
 
+    async def transcribe(self):
+        try:
+            self.connection = self.deepgram.listen.asyncwebsocket.v("1")
+            
+            # --- 关键修正：将回调函数绑定到类的实例方法 ---
+            self.connection.on(LiveTranscriptionEvents.Open, self.on_open)
+            self.connection.on(LiveTranscriptionEvents.Transcript, self.on_message)
+            self.connection.on(LiveTranscriptionEvents.Error, self.on_error)
+            self.connection.on(LiveTranscriptionEvents.Close, self.on_close)
+            self.connection.on(LiveTranscriptionEvents.UtteranceEnd, self.on_utterance_end)
+            self.connection.on(LiveTranscriptionEvents.SpeechStarted, self.on_speech_started)
 
-    except Exception as e:
-        print(f"消费者出现错误: {e}")
-    finally:
-        print("消费者：准备关闭连接。")
-        await dg_connection.finish()
+            options = LiveOptions(
+                model="nova-2-general", language="zh-CN", encoding="linear16",
+                sample_rate=SAMPLE_RATE, channels=CHANNELS, punctuate=True,
+                smart_format=True, interim_results=True, utterance_end_ms="1000",
+                vad_events=True,
+            )
+
+            await self.connection.start(options)
+            self.is_speaking = True
+            
+            mic_task = asyncio.create_task(self._start_microphone())
+            sender_task = asyncio.create_task(self._send_audio_from_queue())
+            
+            await asyncio.gather(mic_task, sender_task)
+
+        except Exception as e: logging.error(f"Could not start transcription: {e}", exc_info=True)
+        finally:
+            if self.connection: await self.connection.finish()
+            self.is_speaking = False
+            logging.info("Transcription process finished.")
+    
+    # --- 最终修正版的回调函数签名 ---
+    # 它们是普通的实例方法，接收self，并且能够接收SDK传来的额外参数
+    
+    async def on_open(self, dg_connection, open, **kwargs):
+        logging.info(f"Connection Open: {open}")
+
+    async def on_error(self, dg_connection, error, **kwargs):
+        logging.error(f"Deepgram error: {error}")
+
+    async def on_close(self, dg_connection, close, **kwargs):
+        logging.info(f"Connection closed: {close}")
+
+    async def on_speech_started(self, dg_connection, speech_started, **kwargs):
+        logging.info("--- VAD: 检测到语音开始 ---")
+
+    async def on_utterance_end(self, dg_connection, utterance_end, **kwargs):
+        sys.stdout.write("\n")
+        logging.info("--- VAD: 检测到一句话结束 ---")
+
+    async def on_message(self, dg_connection, result, **kwargs):
+        transcript = result.channel.alternatives[0].transcript
+        if len(transcript) == 0: return
+            
+        if result.is_final:
+            sys.stdout.write("\n")
+            logging.info(f"[FINAL]: {transcript}")
+        else:
+            sys.stdout.write(f"        (Interim): {transcript.ljust(60)}" + '\r')
+            sys.stdout.flush()
+
+    def stop(self):
+        logging.info("Stop requested.")
+        self.is_speaking = False
 
 async def main():
-    """主函数，同时运行生产者和消费者"""
-    print("--- 开始健壮性测试 ---")
-    print("按 Control+C 停止测试。")
+    if not API_KEY: logging.error("DEEPGRAM_API_KEY not set in .env file."); return
+
+    client = ASRClient(API_KEY)
+    transcribe_task = asyncio.create_task(client.transcribe())
+
+    print("\n--- 启动实时语音识别测试 v4 (最终回调函数修正) ---")
+    print("--- 按下 Enter 键停止程序 ---\n")
     
-    # 并发运行两个任务
-    producer_task = asyncio.create_task(mic_producer())
-    consumer_task = asyncio.create_task(dg_consumer())
+    loop = asyncio.get_running_loop()
+    await loop.run_in_executor(None, input)
     
-    await asyncio.gather(producer_task, consumer_task)
+    client.stop()
+    await transcribe_task
+    print("\nProgram finished.")
 
 if __name__ == "__main__":
-    try:
-        asyncio.run(main())
-    except KeyboardInterrupt:
-        print("\n测试被用户手动停止。")
+    try: asyncio.run(main())
+    except KeyboardInterrupt: print("\nProgram interrupted by user.")
